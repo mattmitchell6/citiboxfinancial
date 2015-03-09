@@ -15,63 +15,74 @@ import com.box.sdk.BoxFolder;
 import com.box.sdk.BoxItem;
 import com.box.sdk.BoxUser;
 
-public class HelloServlet extends HttpServlet {
+public class Register extends HttpServlet {
 
    protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
          throws ServletException, IOException {
       
       // Turn off logging to prevent polluting the output.
       Logger.getLogger("com.box.sdk").setLevel(Level.OFF);
-
       BoxAPIConnection api = new BoxAPIConnection(Main.getDevToken());
-      
+     
       BoxUser.Info userInfo = BoxUser.getCurrentUser(api).getInfo();
-      System.out.format("Welcome, %s <%s>!\n\n", userInfo.getName(), userInfo.getLogin());
-
       BoxFolder rootFolder = BoxFolder.getRootFolder(api); 
       
       String email = req.getParameter("email");
-      String pass = req.getParameter("pass");
       String folder = "Users";
+      boolean newUser = true;
+      String userFolderID = "";
          
-      if(!email.isEmpty()) {
-         
+      // did the user input an email?
+      if(!email.isEmpty()) {        
          // search for the folder with the name "Users"
          for (BoxItem.Info itemInfo : rootFolder) {
-   
-            // determine if the inputted email exists within the "Users" folder
+               
+            // determine if the inputed email already exists within the "Users" folder.
+            // If not, create a new user folder with inputed email.
             if(itemInfo.getName().equals(folder)) {
+               userFolderID = itemInfo.getID();
                
                BoxFolder user = new BoxFolder(api, itemInfo.getID());
                for(BoxItem.Info userFolder : user) {
                   
                   if(userFolder.getName().equals(email)) {
-                     Main.setUserEmail(email);
-                     String nextJSP = "/homepage.jsp";
-                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-                     dispatcher.forward(req,resp);
+                     newUser = false;
                      break;
                   }
                }
             }
          }
-         
-      
+      }
+      else {
+         newUser = false;
       }
       
-      String nextJSP = "/invalidindex.jsp";
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-      dispatcher.forward(req,resp);
+      // if the email is valid and does not exist, create new user folder
+      // else, redirect to invalid registration page
+      if(newUser) {
+         Main.setUserEmail(email);
+         BoxFolder parentFolder = new BoxFolder(api, userFolderID);
+         BoxFolder.Info childFolderInfo = parentFolder.createFolder(email);
+         String nextJSP = "/homepage.jsp";
+         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+         dispatcher.forward(req,resp); 
+      }
+      else {
+         String nextJSP = "/invalidregister.jsp";
+         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+         dispatcher.forward(req,resp);   
+      }
+      
    }
    
    
-	@Override
+   @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
       processRequest(req, resp);
     }
-	
-   @Override	
+   
+   @Override   
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
          throws ServletException, IOException {
       processRequest(req, resp);

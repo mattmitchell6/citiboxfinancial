@@ -1,4 +1,11 @@
 package com.example;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.box.sdk.BoxAPIConnection;
+import com.box.sdk.BoxFolder;
+import com.box.sdk.BoxItem;
+import com.box.sdk.BoxUser;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -10,13 +17,45 @@ import org.eclipse.jetty.webapp.WebAppContext;
  * launching should fire this main method.
  *
  */
-public class Main {
-    
+public class Main {  
+ 
+   private static String userEmail = new String(); 
+   private static final String DEVELOPER_TOKEN = "qZJcISKivgM8qEnlNlzIOJS3rJpGRItT";
+   private static final String YOUR_CLIENT_ID = "no89ya51l401e7922aahz0b9z8e6cdfs";
+   private static final String YOUR_CLIENT_SECRET = "jUhsCRNiAGumKiDG8LP0U0K3CTJ8jx3s";
+   private static final String YOUR_ACCESS_TOKEN = "7lCXdiyENGUEHQb78VCPd3VlmzzSYh4O";
+   private static final String YOUR_REFRESH_TOKEN = "FcMoRVGgJDvodxvyf0xTSLxQoKuoUPgodYK79k0IuKEPIe0KrEPnf3nDmF37AAxi";
+   private static final int MAX_DEPTH = 1;  
+   
+   public static String getDevToken() {
+      return DEVELOPER_TOKEN;
+   }
+   
+   public static void setUserEmail(String email) {
+      userEmail = email;
+   }
+   
+   public static String getUserEmail() {
+      return userEmail;
+   }
+      
     /**
      * @param args
      */
     public static void main(String[] args) throws Exception{
-        String webappDirLocation = "src/main/webapp/";
+       
+       /*
+       // This connection won't auto-refresh.
+       BoxAPIConnection api = new BoxAPIConnection("YOUR_CLIENT_ID",
+        "YOUR_CLIENT_SECRET", "YOUR_ACCESS_TOKEN", "YOUR_REFRESH_TOKEN");
+       api.setAutoRefresh(false);
+
+       // If the access token expires, you will have to manually refresh it.
+       api.refresh();
+       */
+     
+       
+       String webappDirLocation = "src/main/webapp/";
         
         //The port that we should run on can be set into an environment variable
         //Look for that variable and default to 8080 if it isn't there.

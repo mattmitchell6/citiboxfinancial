@@ -23,6 +23,8 @@
         <input type="password" name="pass" placeholder="Password">
       </label>
 
+      <p style="color:red;text-align:center">Invalid email and/or password</p>
+
       <input type="submit" name="login" class="login login-submit" value="login">
     </form>
 
