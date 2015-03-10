@@ -19,8 +19,8 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public class Main {  
  
-   private static String userEmail = new String(); 
-   private static final String DEVELOPER_TOKEN = "qZJcISKivgM8qEnlNlzIOJS3rJpGRItT";
+   private static String userFolderName = new String(); 
+   private static final String DEVELOPER_TOKEN = "p1UFPxWEVijshlHZRnYHiHjfJxBi1ffg";
    private static final String YOUR_CLIENT_ID = "no89ya51l401e7922aahz0b9z8e6cdfs";
    private static final String YOUR_CLIENT_SECRET = "jUhsCRNiAGumKiDG8LP0U0K3CTJ8jx3s";
    private static final String YOUR_ACCESS_TOKEN = "7lCXdiyENGUEHQb78VCPd3VlmzzSYh4O";
@@ -31,12 +31,12 @@ public class Main {
       return DEVELOPER_TOKEN;
    }
    
-   public static void setUserEmail(String email) {
-      userEmail = email;
+   public static void setUserFolderName(String email) {
+      userFolderName = email;
    }
    
-   public static String getUserEmail() {
-      return userEmail;
+   public static String getUserFolderName() {
+      return userFolderName;
    }
       
     /**
@@ -71,11 +71,6 @@ public class Main {
         root.setDescriptor(webappDirLocation+"/WEB-INF/web.xml");
         root.setResourceBase(webappDirLocation);
         
-        //Parent loader priority is a class loader setting that Jetty accepts.
-        //By default Jetty will behave like most web containers in that it will
-        //allow your application to replace non-server libraries that are part of the
-        //container. Setting parent loader priority to true changes this behavior.
-        //Read more here: http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
         root.setParentLoaderPriority(true);
         
         server.setHandler(root);

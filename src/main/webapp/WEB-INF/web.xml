@@ -11,7 +11,7 @@
     
   <servlet>
     <servlet-name>login</servlet-name>
-    <servlet-class>com.example.HelloServlet</servlet-class>
+    <servlet-class>com.example.Login</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>login</servlet-name>
@@ -26,15 +26,14 @@
     <servlet-name>register</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
-
-  <servlet>
-    <servlet-name>homepage</servlet-name>
-    <jsp-file>/src/main/webapp/homepage.jsp</jsp-file>
+  
+   <servlet>
+    <servlet-name>uploadloan</servlet-name>
+    <servlet-class>com.example.UploadLoanRequest</servlet-class>
   </servlet>
-
   <servlet-mapping>
-    <servlet-name>homepage</servlet-name>
-    <url-pattern>/homepage</url-pattern>
+    <servlet-name>uploadloan</servlet-name>
+    <url-pattern>/uploadloan</url-pattern>
   </servlet-mapping>
 
 </web-app>

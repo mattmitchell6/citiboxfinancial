@@ -30,7 +30,7 @@ public class Register extends HttpServlet {
       String email = req.getParameter("email");
       String folder = "Users";
       boolean newUser = true;
-      String userFolderID = "";
+      String mainFolderID = "";
          
       // did the user input an email?
       if(!email.isEmpty()) {        
@@ -40,7 +40,7 @@ public class Register extends HttpServlet {
             // determine if the inputed email already exists within the "Users" folder.
             // If not, create a new user folder with inputed email.
             if(itemInfo.getName().equals(folder)) {
-               userFolderID = itemInfo.getID();
+               mainFolderID = itemInfo.getID();
                
                BoxFolder user = new BoxFolder(api, itemInfo.getID());
                for(BoxItem.Info userFolder : user) {
@@ -60,10 +60,10 @@ public class Register extends HttpServlet {
       // if the email is valid and does not exist, create new user folder
       // else, redirect to invalid registration page
       if(newUser) {
-         Main.setUserEmail(email);
-         BoxFolder parentFolder = new BoxFolder(api, userFolderID);
+         BoxFolder parentFolder = new BoxFolder(api, mainFolderID);
          BoxFolder.Info childFolderInfo = parentFolder.createFolder(email);
-         String nextJSP = "/homepage.jsp";
+         Main.setUserFolderName(email);
+         String nextJSP = "/regsuccess.jsp";
          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
          dispatcher.forward(req,resp); 
       }

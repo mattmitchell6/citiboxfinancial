@@ -19,7 +19,7 @@
     <br>
     <br>
 
-    <form action="loanrequest.html">
+    <form action="loanrequest.jsp">
       <input type="submit" name="loanrequest" class="login login-request" value="Apply For a Loan">
     </form>
     <br>

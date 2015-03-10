@@ -15,24 +15,23 @@ import com.box.sdk.BoxFolder;
 import com.box.sdk.BoxItem;
 import com.box.sdk.BoxUser;
 
-public class HelloServlet extends HttpServlet {
+public class Login extends HttpServlet {
 
    protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
          throws ServletException, IOException {
+
+      String email = req.getParameter("email");
+      String folder = "Users";
+      boolean validLogin = false;
       
       // Turn off logging to prevent polluting the output.
       Logger.getLogger("com.box.sdk").setLevel(Level.OFF);
-
+      
       BoxAPIConnection api = new BoxAPIConnection(Main.getDevToken());
       
       BoxUser.Info userInfo = BoxUser.getCurrentUser(api).getInfo();
-      System.out.format("Welcome, %s <%s>!\n\n", userInfo.getName(), userInfo.getLogin());
 
       BoxFolder rootFolder = BoxFolder.getRootFolder(api); 
-      
-      String email = req.getParameter("email");
-      String pass = req.getParameter("pass");
-      String folder = "Users";
          
       if(!email.isEmpty()) {
          
@@ -43,25 +42,31 @@ public class HelloServlet extends HttpServlet {
             if(itemInfo.getName().equals(folder)) {
                
                BoxFolder user = new BoxFolder(api, itemInfo.getID());
+               
                for(BoxItem.Info userFolder : user) {
                   
                   if(userFolder.getName().equals(email)) {
-                     Main.setUserEmail(email);
-                     String nextJSP = "/homepage.jsp";
-                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-                     dispatcher.forward(req,resp);
-                     break;
+                     validLogin = true;
                   }
                }
             }
-         }
-         
-      
+         }     
       }
       
-      String nextJSP = "/invalidindex.jsp";
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-      dispatcher.forward(req,resp);
+      // If the login is valid, go to the home page
+      // else, go to invalid login page
+      if(validLogin) {
+         Main.setUserFolderName(email);
+         String nextJSP = "/homepage.jsp";
+         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+         dispatcher.forward(req,resp);         
+      }
+      else {
+         String nextJSP = "/invalidindex.jsp";
+         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+         dispatcher.forward(req,resp);         
+      }
+      
    }
    
    
