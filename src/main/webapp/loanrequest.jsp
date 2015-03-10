@@ -29,7 +29,7 @@
     <br>
     <form action="/uploadloan" method="post" enctype="multipart/form-data">
       <label>Upload Financial Documents
-        <input type="file" name="file">
+        <input type="file" name="file" accept="application/pdf">
       </label>
       <br>
       <input type="submit" name="loan" class="login login-submit" value="Request Loan">

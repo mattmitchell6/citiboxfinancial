@@ -31,12 +31,7 @@ public class UploadLoanRequest extends HttpServlet {
       int numFiles = 1;
       DateFormat dateFormat = new SimpleDateFormat("MM-dd-yy");
       Date date = new Date();
-      String filePath = req.getPathTranslated();
-      System.out.println("path: " + filePath);
       
-      
-      
-
       // Turn off logging to prevent polluting the output.
       Logger.getLogger("com.box.sdk").setLevel(Level.OFF);
       
@@ -65,8 +60,6 @@ public class UploadLoanRequest extends HttpServlet {
          }
       }
 
-      System.out.println("Folder name: " + userFolder.getInfo().getName() + ".pdf");
-      
       InputStream stream = req.getInputStream();
       //InputStream stream = new FileInputStream("/Users/mattstumitchell/Box Sync/Top 10 things to do in Box.pdf");
       
@@ -83,11 +76,10 @@ public class UploadLoanRequest extends HttpServlet {
       userFolder.uploadFile(stream, toUpload);
       stream.close();
 
-      String nextJSP = "/homepage.jsp";
+      String nextJSP = "/loanreqsuccess.jsp";
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
       dispatcher.forward(req,resp);
    }
-   
    
    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

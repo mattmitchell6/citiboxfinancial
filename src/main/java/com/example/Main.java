@@ -20,7 +20,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class Main {  
  
    private static String userFolderName = new String(); 
-   private static final String DEVELOPER_TOKEN = "p1UFPxWEVijshlHZRnYHiHjfJxBi1ffg";
+   private static final String DEVELOPER_TOKEN = "NAg7gxfH7uXncFbmTaVFyrElv8TnoKa2";
    private static final String YOUR_CLIENT_ID = "no89ya51l401e7922aahz0b9z8e6cdfs";
    private static final String YOUR_CLIENT_SECRET = "jUhsCRNiAGumKiDG8LP0U0K3CTJ8jx3s";
    private static final String YOUR_ACCESS_TOKEN = "7lCXdiyENGUEHQb78VCPd3VlmzzSYh4O";
