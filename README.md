@@ -26,6 +26,7 @@ https://citiboxfinancial.herokuapp.com
 The Box email/password listed below can be used to verify the collaboration folders.
 
 **Email:** citiboxfinancial@gmail.com
+
 **Password:** citibox123
 
 
