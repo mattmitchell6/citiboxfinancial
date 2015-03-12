@@ -1,14 +1,9 @@
-# Embedded Jetty template application
+# Citibox Financial Loan App - Java Servlet
 
-This is a template for a web application that uses embedded Jetty. The sample code consists of a JSP (this page) and a simple servlet.
+This is a web application that allows a user to sign-in/register through their Box account. At the home page the user has the option to either apply for a new loan or view their loan history. 
 
-## Running the application locally
+## Web App URL
 
-First build with:
+https://citiboxfinancial.herokuapp.com
 
-    $mvn clean install
-
-Then run it with:
-
-    $java -cp target/classes:target/dependency/* com.example.Main
 
