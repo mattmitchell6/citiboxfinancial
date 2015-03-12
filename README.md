@@ -1,11 +1,11 @@
 # Citibox Financial Loan App - Java Servlet
 
-This web app is designed to be a sample "loan request" application for some bank. The application allows users to register and upload their "sensitive financial documents" to the app, using Box's API integration. All of the Java files programmed for this app exists in the folder. All of the html/css files written exist in the folder
+This web app is designed to be a sample "loan request" application for some bank. The application allows the bank's clients to register and upload their "sensitive financial documents" to the app, using Box's API integration. All of the Java files programmed for this app exist in the /src/main/java/com/example folder. All of the html/css files written exist in the /src/main/webapp folder.
 
 
 **Login/Registration:**
 
-The user must first log in to their Box account to obtain an application authorization code from Box. This authorization allows the user to sync their Box account to the Citibox web app and allow for Box API calls. After application registration, a new folder called "CitiboxFinancial" will be created in the root of the user's Box account.
+When the user launches the app, they must first log in to their Box account to obtain an application authorization code from Box. This authorization allows the user to sync their Box account to the Citibox web app to allow for Box API calls. After application registration, a new folder called "CitiboxFinancial" will be created in the root of the user's Box account.
 
 
 **Apply For a Loan:**
